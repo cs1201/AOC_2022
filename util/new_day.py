@@ -11,7 +11,7 @@ if len(sys.argv) < 2:
     print("No day number given")
     sys.exit()
 
-YEAR = 2021
+YEAR = 2022
 DAY  = int(sys.argv[1])
 
 

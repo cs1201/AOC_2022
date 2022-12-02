@@ -13,5 +13,5 @@ def part_two(data):
 
 with open("day_1_input.txt") as f:
     data = [sum([int(x) for x in elf.split()]) for elf in f.read().split("\n\n")]
-    print(f"Part One: {part_one(data)}")
-    print(f"Part Two: {part_two(data)}")
+    print(f"Part One: {part_one(data)}") # 70720
+    print(f"Part Two: {part_two(data)}") # 207148

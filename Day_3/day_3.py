@@ -9,13 +9,13 @@ def get_priority(x):
 
 @profile
 def part_one(data):
-    return sum(get_priority(list(set(bag[:int(len(bag)/2)]).intersection(bag[int(len(bag)/2):]))[0]) for bag in data)
+    return sum(get_priority((set(x[:len(x)//2]) & set(x[len(x)//2:])).pop()) for x in data)
 
 
 @profile
 def part_two(data):
     data = list(zip(*(iter(data),) * 3))
-    return sum(get_priority(list(set(x[0]).intersection(x[1]).intersection(x[2]))[0]) for x in data)
+    return sum(get_priority((set(x[0]) & set(x[1]) & set(x[2])).pop()) for x in data)
 
 
 with open("day_3_input.txt") as f:

@@ -11,14 +11,11 @@ def get_priority(x):
 def part_one(data):
     return sum(get_priority(list(set(bag[:int(len(bag)/2)]).intersection(bag[int(len(bag)/2):]))[0]) for bag in data)
 
+
 @profile
 def part_two(data):
-    iterator = iter(data)
-    total = 0
-    while chunk := list(islice(iterator, 3)):
-        common = list(set(chunk[0]).intersection(chunk[1]).intersection(chunk[2]))[0]
-        total +=  get_priority(common)
-    return total
+    data = list(zip(*(iter(data),) * 3))
+    return sum(get_priority(list(set(x[0]).intersection(x[1]).intersection(x[2]))[0]) for x in data)
 
 
 with open("day_3_input.txt") as f:

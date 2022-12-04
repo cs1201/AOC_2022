@@ -2,7 +2,6 @@ import sys
 sys.path.insert(0, '../util')
 from profiler import profile
 from parse import *
-from itertools import islice
 
 def get_priority(x):
     return ord(x) - (96 if x.islower() else 38)

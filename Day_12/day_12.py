@@ -9,7 +9,7 @@ def get_neighbours(cur, points):
     x,y = cur
     for (nx, ny) in [(x-1,y), (x+1,y), (x,y-1), (x,y+1)]:
         if (nx,ny) in points.keys():
-            if points[(nx,ny)] <= points[cur] + 1:
+            if points[(nx,ny)] + 1 >= points[cur]:
                 neighbours.append((nx,ny))
     return neighbours
 
@@ -33,6 +33,7 @@ def bfs(start, end, points):
             previous[n] = current
     return distance
 
+
 @profile
 def part_one(data):
     points = {}
@@ -45,7 +46,8 @@ def part_one(data):
                 end = (x,y)
                 height = "z"
             points[(x,y)] = ord(height) - 97
-    return bfs(start, end, points)[end]
+    return bfs(end, start, points)[start]
+    
     
 @profile
 def part_two(data):
@@ -54,17 +56,19 @@ def part_two(data):
     points = {}
     for y, row in enumerate(data):
         for x, height in enumerate(row):
-            if height in ["S", "a"]:
-                possible_starts.append((x,y))
+            if height == "S":
+                start = (x,y)
                 height = "a"
+            elif height == "a":
+                possible_starts.append((x,y))
             elif height == "E":
                 end = (x,y)
                 height = "z"
             points[(x,y)] = ord(height) - 97
+    d = bfs(end,start, points)
     for s in possible_starts:
-        d = bfs(s, end, points)
-        if end in d.keys():
-            distances.append(d[end])
+        if s in d.keys():
+            distances.append(d[s])
     return min(distances)
 
 

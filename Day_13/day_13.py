@@ -4,10 +4,6 @@ from profiler import profile
 import ast
 from functools import cmp_to_key
 
-CORRECT = 1
-INCORRECT = -1
-CONTINUE = None
-
 
 def parse_pair(l,r):
     x = 0

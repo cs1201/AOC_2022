@@ -10,25 +10,19 @@ CONTINUE = None
 
 
 def parse_pair(l,r):
-    if isinstance(l, list) and isinstance(r, list):
-        for i in range(max(len(l),len(r))):
-            if i >= len(l):
-                return CORRECT
-            elif i >= len(r):
-                return INCORRECT
+    x = 0
+    for i in range(min(len(l),len(r))):
+        if isinstance(l[i], list) and isinstance(r[i], list):
             x = parse_pair(l[i], r[i])
-            if x != CONTINUE:
-                return x
-    elif isinstance(l, int) and isinstance(r,int):
-        return CORRECT if (l<r) else INCORRECT if (l > r) else CONTINUE
-    elif isinstance(l, int) and isinstance(r, list):
-        x = parse_pair([l],r)
-        if x != CONTINUE:
+        elif isinstance(l[i], int) and isinstance(r[i],int):
+            x = (l[i] < r[i]) - (l[i] > r[i])
+        elif isinstance(l[i], int) and isinstance(r[i], list):
+            x = parse_pair([l[i]],r[i])
+        elif isinstance(l[i], list) and isinstance(r[i],int):
+            x = parse_pair(l[i],[r[i]])
+        if x:
             return x
-    elif isinstance(l, list) and isinstance(r,int):
-        x = parse_pair(l,[r])
-        if x != CONTINUE:
-            return x
+    return (len(l) < len(r)) - (len(l) > len(r))
 
 
 @profile
